@@ -12,7 +12,7 @@ class Player:
         return str(self._name)
 
     def __str__(self):
-        return f"Player: {self._name}_{self._id}"
+        return f"{self._name}_{self._id}"
 
 if __name__ == "__main__":
     player1 = Player(123, "Angelica")
