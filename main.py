@@ -14,3 +14,7 @@ if __name__ == '__main__':
     print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+# In python, a folder with an __init__.py file in it is considered a package.
+

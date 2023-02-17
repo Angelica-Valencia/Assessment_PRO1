@@ -15,4 +15,7 @@ class PlayerList:
     def append(self, player):
         if self.is_empty():
             self._head = player
+            self._tail = player
+        else:
+            pass
 
