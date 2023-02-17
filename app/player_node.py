@@ -30,6 +30,7 @@ class PlayerNode:
         return f"Player: {self._player}\nPrevious: {self._previous}\nNext: {self._next}"
 
 
+
 if __name__ == "__main__":
 
     player_node = PlayerNode(Player("123", "Juan"))
