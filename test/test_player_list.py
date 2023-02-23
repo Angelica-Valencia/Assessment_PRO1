@@ -51,3 +51,19 @@ class TestPlayerList(unittest.TestCase):
             self.assertEqual(node.get_key(), player.get_key())
             node = node.get_next()
 
+    def test_the_tail_when_adding_at_the_head(self):
+
+        players_nodes = [self.player_node_1, self.player_node_2, self.player_node_3]
+        players = [self.player, self.player_2, self.player_3]
+
+        for player in players:
+
+            self.player_list.add_at_the_head(player)
+
+            self.assertEqual(self.player_list.get_tail().get_key(), players_nodes[0].get_key())
+            self.assertEqual(self.player_list.get_tail().get_next(), None)
+
+            if self.player_list.get_tail() == self.player_list.get_head():
+                self.assertEqual(self.player_list.get_tail().get_previous(), None)
+            else:
+                self.assertEqual(self.player_list.get_tail().get_previous().uid, players_nodes[1].get_key())

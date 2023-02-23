@@ -16,15 +16,21 @@ class PlayerList:
     def get_head(self):
         return self._head
 
+    def get_tail(self):
+        return self._tail
+
     def add_at_the_head(self, player):
         new_player_node = PlayerNode(player)
         if self.is_empty():
             self._head = new_player_node
+            self._tail = new_player_node
         else:
             self._head.set_previous(new_player_node.get_player())
             previous_head = self._head
             new_player_node.set_next(previous_head)
             self._head = new_player_node
+
+
 
 
     # def append(self, player):
@@ -45,12 +51,21 @@ if __name__ == "__main__":
 
     my_list.add_at_the_head(Player("123", "Lina"))
     print(my_list.get_head(), my_list.is_empty(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
 
     my_list.add_at_the_head(Player("456", "Eliza"))
     print(my_list.get_head(), my_list.is_empty(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
 
     my_list.add_at_the_head(Player("678", "Tania"))
     print(my_list.get_head(), my_list.is_empty(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
 
     my_list.add_at_the_head(Player("213", "Marce"))
     print(my_list.get_head(), my_list.is_empty(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
+    print(my_list.get_tail().get_key(), "\n")
