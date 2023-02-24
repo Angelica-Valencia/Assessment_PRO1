@@ -1,3 +1,4 @@
+from __future__ import annotations
 from app.player import Player
 
 
@@ -17,7 +18,7 @@ class PlayerNode:
     def get_next(self):
         return self._next
 
-    def set_previous(self, previous):
+    def set_previous(self, previous) -> PlayerNode:
         self._previous = previous
 
     def set_next(self, next_one):
@@ -26,8 +27,13 @@ class PlayerNode:
     def get_key(self):
         return self._player.uid
 
-    def __str__(self):
-        return f"Player: {self._player}\nPrevious: {self._previous}\nNext: {self._next}"
+    def __repr__(self):
+        next = self._next._player if self._next is not None else "None"
+        prev = self._previous._player if self._previous is not None else "None"
+        return f"PlayerNode({self._player!r}, Previous:  {prev!r}, Next: {next!r})"
+        # return f"PlayerNode({self._player!r}"
+    # def __str__(self):
+    #     return f"Player: {self._player}\nPrevious: {self._previous}\nNext: {self._next}"
 
 
 

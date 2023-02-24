@@ -11,8 +11,8 @@ class Player:
     def name(self):
         return str(self._name)
 
-    def __str__(self):
-        return f"{self._name}_{self._id}"
+    def __repr__(self):
+        return f"Player({self._name!r}, {str(self._id)!r})"
 
 if __name__ == "__main__":
     player1 = Player(123, "Angelica")
