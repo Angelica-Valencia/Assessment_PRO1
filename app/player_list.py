@@ -59,9 +59,6 @@ class PlayerList:
             # node_tail.set_previous(new_player_node_tail)
             # self._tail = node_tail
 
-
-
-
     def add_at_the_tail(self, player: Player):
         new_player_node = PlayerNode(player)
         if self.is_empty():
@@ -95,33 +92,6 @@ if __name__ == "__main__":
     my_list = PlayerList()
     print(my_list.get_head(), my_list.is_empty(), "\n")
 
-    # my_list.add_at_the_head(Player("123", "Lina"))
-    # print(my_list.get_head(), my_list.is_empty(), "\n")
-    # print("Tail:", "\n")
-    # print(my_list.get_tail(), "\n")
-    #
-    # my_list.add_at_the_head(Player("456", "Eliza"))
-    # print(my_list.get_head(), my_list.is_empty(), "\n")
-    # print("Tail:", "\n")
-    # print(my_list.get_tail(), "\n")
-    #
-    # my_list.add_at_the_head(Player("678", "Tania"))
-    # print(my_list.get_head(), my_list.is_empty(), "\n")
-    # print("Tail:", "\n")
-    # print(my_list.get_tail(), "\n")
-    #
-    # my_list.add_at_the_head(Player("213", "Marce"))
-    # print(my_list.get_head(), my_list.is_empty(), "\n")
-    # print("Tail:", "\n")
-    # print(my_list.get_tail(), "\n")
-    # print(my_list.get_tail().get_key(), "\n")
-
-    # my_list.add_at_the_tail(Player("123", "Lina"))
-    # print("Head:", "\n")
-    # print(my_list.get_head(), "\n")
-    # print("Tail:", "\n")
-    # print(my_list.get_tail(), "\n")
-
     my_list.add_at_the_head(Player("456", "Eliza"))
     print("Head:", "\n")
     print(my_list.get_head(), "\n")
@@ -140,9 +110,28 @@ if __name__ == "__main__":
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
-    tail = my_list.get_tail()
+    my_list.add_at_the_tail(Player("213", "Carolina"))
+    print("Head:", "\n")
+    print(my_list.get_head(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
 
-    while tail.get_previous():
-        print(tail)
+    my_list.add_at_the_head(Player("213", "Alejandra"))
+    print("Head:", "\n")
+    print(my_list.get_head(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
+
+    tail = my_list.get_tail()
+    head = my_list.get_head()
+
+    while True:
+        print(f"Tail:\n{tail}")
+        print(f"Head:\n{head}")
         tail = tail.get_previous()
+        head = head.get_next()
+        if tail:
+            pass
+        else:
+            break
 
