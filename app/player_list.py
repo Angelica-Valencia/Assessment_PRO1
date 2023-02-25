@@ -45,7 +45,7 @@ class PlayerList:
             # self._head = new_player_node
 
             node = self._head
-            node_tail = self._tail
+            # node_tail = self._tail
 
             new_player_node_head.set_next(node)
             node.set_previous(new_player_node_head)
@@ -71,8 +71,8 @@ class PlayerList:
 
             node = self._tail
 
-            while node.get_next():
-                node = node.get_next()
+            # while node.get_next():
+            #     node = node.get_next()
 
             # new_player_node.set_previous(self._tail.get_player())
             # node.set_next(new_player_node)
@@ -86,6 +86,26 @@ class PlayerList:
             # previous_tail = self._tail
             # new_player_node.set_previous(previous_tail)
             # self._tail = new_player_node
+
+    def delete_from_head(self):
+        if self.is_empty():
+            raise "The list is empty"
+        elif self._head == self._tail:
+            self._head, self._tail = None, None
+        else:
+            new_head = self.get_head().get_next()
+            new_head.set_previous(None)
+            self._head = new_head
+
+    def delete_from_tail(self):
+        if self.is_empty():
+            raise "The list is empty"
+        elif self._head == self._tail:
+            self._head, self._tail = None, None
+        else:
+            new_tail = self.get_tail().get_previous()
+            new_tail.set_next(None)
+            self._tail = new_tail
 
 if __name__ == "__main__":
 
@@ -122,16 +142,28 @@ if __name__ == "__main__":
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
+    my_list.delete_from_tail()
+    my_list.delete_from_tail()
+    my_list.delete_from_tail()
+    my_list.delete_from_tail()
+    my_list.delete_from_tail()
+
+    print("Head:", "\n")
+    print(my_list.get_head(), "\n")
+    print("Tail:", "\n")
+    print(my_list.get_tail(), "\n")
+
     tail = my_list.get_tail()
     head = my_list.get_head()
 
-    while True:
-        print(f"Tail:\n{tail}")
-        print(f"Head:\n{head}")
-        tail = tail.get_previous()
-        head = head.get_next()
-        if tail:
-            pass
-        else:
-            break
+
+    # while True:
+    #     print(f"Tail:\n{tail}")
+    #     print(f"Head:\n{head}")
+    #     tail = tail.get_previous()
+    #     head = head.get_next()
+    #     if tail:
+    #         pass
+    #     else:
+    #         break
 

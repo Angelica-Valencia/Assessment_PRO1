@@ -121,3 +121,5 @@ class TestPlayerList(unittest.TestCase):
         for player in tail_order:
             self.assertEqual(str(tail.get_player()), str(player))
             tail = tail.get_previous()
+
+
