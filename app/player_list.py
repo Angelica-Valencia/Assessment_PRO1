@@ -89,7 +89,7 @@ class PlayerList:
 
     def delete_from_head(self):
         if self.is_empty():
-            raise "The list is empty"
+            raise IndexError("The list is empty")
         elif self._head == self._tail:
             self._head, self._tail = None, None
         else:
@@ -99,7 +99,7 @@ class PlayerList:
 
     def delete_from_tail(self):
         if self.is_empty():
-            raise "The list is empty"
+            raise IndexError("The list is empty")
         elif self._head == self._tail:
             self._head, self._tail = None, None
         else:
@@ -142,6 +142,7 @@ if __name__ == "__main__":
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
+    my_list.delete_from_tail()
     my_list.delete_from_tail()
     my_list.delete_from_tail()
     my_list.delete_from_tail()

@@ -16,7 +16,7 @@ class TestPlayerList(unittest.TestCase):
 
         self.player_list = PlayerList()
 
-    def test_checking_empty_list_when_created(self):
+    def test_that_checks_empty_list_when_created(self):
         self.assertEqual(self.player_list.is_empty(), True)
 
     def test_that_updates_the_head_of_the_list(self):
@@ -121,5 +121,197 @@ class TestPlayerList(unittest.TestCase):
         for player in tail_order:
             self.assertEqual(str(tail.get_player()), str(player))
             tail = tail.get_previous()
+
+    def test_error_raised_when_deleting_in_an_empty_list(self):
+
+        with self.assertRaises(IndexError):
+            self.player_list.delete_from_tail()
+
+        with self.assertRaises(IndexError):
+            self.player_list.delete_from_head()
+
+    def test_that_checks_remaining_players_deleted_from_tail(self):
+        """
+        Order when all the players have been added at the head:
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+        """
+
+        count = 0
+        remaining_players = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+            count += 1
+
+        for lap in range(count):
+            self.player_list.delete_from_tail()
+
+            node = self.player_list.get_tail()
+
+            while node:
+                remaining_players += 1
+                node = node.get_previous()
+
+            self.assertEqual(count - lap - 1, remaining_players)
+            remaining_players = 0
+
+    def test_that_checks_remaining_players_deleted_from_head(self):
+        """
+        Order when all the players have been added at the head:
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+        """
+
+        count = 0
+        remaining_players = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+            count += 1
+
+        for lap in range(count):
+            self.player_list.delete_from_head()
+
+            node = self.player_list.get_head()
+
+            while node:
+                remaining_players += 1
+                node = node.get_next()
+
+            self.assertEqual(count - lap - 1, remaining_players)
+            remaining_players = 0
+
+    def test_that_checks_the_last_remaining_node_deleting_from_head(self):
+        """
+        Order when all the players have been added at the head:
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+        """
+
+        count = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+            count += 1
+
+        for lap in range(count - 1):
+            self.player_list.delete_from_head()
+
+        self.assertEqual(self.player_list.get_head().get_player(), self.players[0])  # Player('Isabel', '1702')
+        self.assertEqual(self.player_list.get_head().get_previous(), None)
+        self.assertEqual(self.player_list.get_head().get_next(), None)
+        self.assertEqual(self.player_list.get_head(), self.player_list.get_tail())
+
+    def test_that_checks_the_last_remaining_node_deleting_from_tail(self):
+        """
+        Order when all the players have been added at the head:
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+        """
+
+        count = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+            count += 1
+
+        for lap in range(count - 1):
+            self.player_list.delete_from_tail()
+
+        self.assertEqual(self.player_list.get_head().get_player(), self.players[3])  # Player('Carlos', '0317')
+        self.assertEqual(self.player_list.get_head().get_previous(), None)
+        self.assertEqual(self.player_list.get_head().get_next(), None)
+        self.assertEqual(self.player_list.get_head(), self.player_list.get_tail())
+
+    def test_that_checks_that_list_is_empty_when_removing_the_last_node(self):
+        """
+        Order when all the players have been added at the head:
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+        """
+
+        count = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+            count += 1
+
+        for lap in range(count):
+            self.player_list.delete_from_tail()
+
+        self.assertEqual(self.player_list.get_head(), self.player_list.get_tail())
+        self.assertEqual(self.player_list.get_head(), None)
+
+
+    def test_that_checks_all_the_nodes_from_the_head_to_tail_after_removing(self):
+        """
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+
+        Case 1_Delete from head:
+
+        head_order = [Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+
+        Case 2_Deelete from tail
+
+        head_order = [Player('Leonardo', '7734'), Player('Valeria', '1803')]
+
+        Case 3_Delete from tail
+
+        head_order = [Player('Leonardo', '7734')]
+
+        Case 4_Delete from head
+
+        head_order = [None]
+        """
+        head_order = [Player("0317", "Carlos"), Player("7734", "Leonardo"), Player("1803", "Valeria"), Player("1702", "Isabel")]
+        order = [1, 2, 2, 1]
+        count = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+
+        while count < 4:
+
+            if order[count] == 1:
+                self.player_list.delete_from_head()
+            else:
+                self.player_list.delete_from_tail()
+
+            node = self.player_list.get_head()
+
+            if count == 0:
+                head_order.pop(0)
+            elif count == 1:
+                head_order = [Player("0317", "Carlos"), Player("7734", "Leonardo"), Player("1803", "Valeria"),
+                              Player("1702", "Isabel")]
+                head_order.pop(0)
+                head_order.pop(2)
+            elif count == 2:
+                head_order = [Player("0317", "Carlos"), Player("7734", "Leonardo"), Player("1803", "Valeria"),
+                              Player("1702", "Isabel")]
+                head_order.pop(0)
+                head_order.pop(2)
+                head_order.pop(1)
+            else:
+                head_order.clear()
+                head_order = [None]
+
+            for player in head_order:
+                if count > 2:
+                    self.assertEqual(node, player)
+                else:
+                    self.assertEqual(str(node.get_player()), str(player))
+                    node = node.get_next()
+
+            count += 1
+
+
+
+
+
+
+
 
 
