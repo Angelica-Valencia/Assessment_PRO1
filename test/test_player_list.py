@@ -281,7 +281,6 @@ class TestPlayerList(unittest.TestCase):
                 removed_item = self.player_list.delete_from_tail()
 
             node = self.player_list.get_head()
-
             head_order.remove(str(removed_item))
 
             for player in head_order:
@@ -293,6 +292,48 @@ class TestPlayerList(unittest.TestCase):
 
             count += 1
 
+    def test_error_raised_when_deleting_in_an_empty_list_by_key(self):
+
+        with self.assertRaises(IndexError):
+            self.player_list.delete_by_key("1702")
+
+    def test_value_error_raised_when_deleting_by_a_key_that_is_not_in_the_list(self):
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+
+        with self.assertRaises(ValueError):
+            self.player_list.delete_by_key("1234")
+
+    def test_that_checks_the_whole_list_after_deleting_by_key(self):
+        """
+        head_order: [Player('Carlos', '0317'), Player('Leonardo', '7734'), Player('Valeria', '1803'), Player('Isabel', '1702')]
+        :return: None
+        """
+        head_order = [str(Player("0317", "Carlos")), str(Player("7734", "Leonardo")),
+                      str(Player("1803", "Valeria")), str(Player("1702", "Isabel"))]
+        key_order = ["7734", "1803", "0317", "1702"]
+        count = 0
+
+        for player in self.players:
+            self.player_list.add_at_the_head(player)
+
+        while count < len(key_order):
+
+            removed_item = self.player_list.delete_by_key(key_order[count])
+
+            node = self.player_list.get_head()
+
+            head_order.remove(str(removed_item))
+
+            for player in head_order:
+                if len(head_order) == 0:
+                    self.assertEqual(node, None)
+                else:
+                    self.assertEqual(str(node.get_player()), str(player))
+                    node = node.get_next()
+
+            count += 1
 
 
 

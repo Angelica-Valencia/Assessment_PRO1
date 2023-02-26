@@ -119,13 +119,39 @@ class PlayerList:
             return removed_item
 
     def delete_by_key(self, key: str):
+        if self.is_empty():
+            raise IndexError("The list is empty")
         if self._head == self._tail:
-            if self._head.get_player().get_key() == key:
-                return
+            if self._head.get_player().uid == key:
+                removed_item = self._head.get_player()
+                self._head, self._tail = None, None
+                return removed_item
+            else:
+                raise ValueError(f"The player with key {key} is not in the list.")
         else:
-            new_tail = self.get_tail().get_previous()
-            new_tail.set_next(None)
-            self._tail = new_tail
+
+            node = self._head
+            while node:
+                if node.get_player().uid == key:
+                    removed_item = node.get_player()
+
+                    next_node = node.get_next()
+                    previous_node = node.get_previous()
+
+                    if node.get_player() == self.get_head().get_player():
+                        node.get_next().set_previous(None)
+                        self._head = node.get_next()
+                    elif node.get_player() == self.get_tail().get_player():
+                        node.get_previous().set_next(None)
+                        self._tail = node.get_previous()
+                    else:
+                        next_node.set_previous(previous_node)
+                        previous_node.set_next(next_node)
+
+                    return removed_item
+
+                node = node.get_next()
+            raise ValueError(f"The player with key {key} is not in the list.")
 
 
 if __name__ == "__main__":
@@ -151,23 +177,29 @@ if __name__ == "__main__":
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
-    my_list.add_at_the_tail(Player("213", "Carolina"))
+    my_list.add_at_the_tail(Player("897", "Carolina"))
     print("Head:", "\n")
     print(my_list.get_head(), "\n")
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
-    my_list.add_at_the_head(Player("213", "Alejandra"))
+    my_list.add_at_the_head(Player("732", "Alejandra"))
     print("Head:", "\n")
     print(my_list.get_head(), "\n")
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
-    print(my_list.delete_from_head())
-    print(my_list.delete_from_head())
-    print(my_list.delete_from_head())
-    print(my_list.delete_from_head())
-    print(my_list.delete_from_head())
+    # print(my_list.delete_from_head())
+    # print(my_list.delete_from_head())
+    # print(my_list.delete_from_head())
+    # print(my_list.delete_from_head())
+    # print(my_list.delete_from_head())
+
+    print(my_list.delete_by_key("897"))
+    print(my_list.delete_by_key("732"))
+    print(my_list.delete_by_key("456"))
+    print(my_list.delete_by_key("678"))
+    print(my_list.delete_by_key("213"))
 
     print("Head:", "\n")
     print(my_list.get_head(), "\n")
@@ -178,13 +210,13 @@ if __name__ == "__main__":
     head = my_list.get_head()
 
 
-    # while True:
-    #     print(f"Tail:\n{tail}")
-    #     print(f"Head:\n{head}")
-    #     tail = tail.get_previous()
-    #     head = head.get_next()
-    #     if tail:
-    #         pass
-    #     else:
-    #         break
+    while True:
+        print(f"Tail:\n{tail}")
+        print(f"Head:\n{head}")
+        tail = tail.get_previous()
+        head = head.get_next()
+        if tail:
+            pass
+        else:
+            break
 
