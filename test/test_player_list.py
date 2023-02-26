@@ -265,41 +265,27 @@ class TestPlayerList(unittest.TestCase):
 
         head_order = [None]
         """
-        head_order = [Player("0317", "Carlos"), Player("7734", "Leonardo"), Player("1803", "Valeria"), Player("1702", "Isabel")]
+        head_order = [str(Player("0317", "Carlos")), str(Player("7734", "Leonardo")),
+                      str(Player("1803", "Valeria")), str(Player("1702", "Isabel"))]
         order = [1, 2, 2, 1]
         count = 0
 
         for player in self.players:
             self.player_list.add_at_the_head(player)
 
-        while count < 4:
+        while count < len(head_order):
 
             if order[count] == 1:
-                self.player_list.delete_from_head()
+                removed_item = self.player_list.delete_from_head()
             else:
-                self.player_list.delete_from_tail()
+                removed_item = self.player_list.delete_from_tail()
 
             node = self.player_list.get_head()
 
-            if count == 0:
-                head_order.pop(0)
-            elif count == 1:
-                head_order = [Player("0317", "Carlos"), Player("7734", "Leonardo"), Player("1803", "Valeria"),
-                              Player("1702", "Isabel")]
-                head_order.pop(0)
-                head_order.pop(2)
-            elif count == 2:
-                head_order = [Player("0317", "Carlos"), Player("7734", "Leonardo"), Player("1803", "Valeria"),
-                              Player("1702", "Isabel")]
-                head_order.pop(0)
-                head_order.pop(2)
-                head_order.pop(1)
-            else:
-                head_order.clear()
-                head_order = [None]
+            head_order.remove(str(removed_item))
 
             for player in head_order:
-                if count > 2:
+                if len(head_order) == 0:
                     self.assertEqual(node, player)
                 else:
                     self.assertEqual(str(node.get_player()), str(player))

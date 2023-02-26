@@ -90,22 +90,43 @@ class PlayerList:
     def delete_from_head(self):
         if self.is_empty():
             raise IndexError("The list is empty")
-        elif self._head == self._tail:
+
+        removed_item = self._head.get_player()
+
+        if self._head == self._tail:
             self._head, self._tail = None, None
+            return removed_item
         else:
             new_head = self.get_head().get_next()
             new_head.set_previous(None)
             self._head = new_head
+            return removed_item
 
     def delete_from_tail(self):
+
         if self.is_empty():
             raise IndexError("The list is empty")
-        elif self._head == self._tail:
+
+        removed_item = self._tail.get_player()
+
+        if self._head == self._tail:
             self._head, self._tail = None, None
+            return removed_item
         else:
             new_tail = self.get_tail().get_previous()
             new_tail.set_next(None)
             self._tail = new_tail
+            return removed_item
+
+    def delete_by_key(self, key: str):
+        if self._head == self._tail:
+            if self._head.get_player().get_key() == key:
+                return
+        else:
+            new_tail = self.get_tail().get_previous()
+            new_tail.set_next(None)
+            self._tail = new_tail
+
 
 if __name__ == "__main__":
 
@@ -142,12 +163,11 @@ if __name__ == "__main__":
     print("Tail:", "\n")
     print(my_list.get_tail(), "\n")
 
-    my_list.delete_from_tail()
-    my_list.delete_from_tail()
-    my_list.delete_from_tail()
-    my_list.delete_from_tail()
-    my_list.delete_from_tail()
-    my_list.delete_from_tail()
+    print(my_list.delete_from_head())
+    print(my_list.delete_from_head())
+    print(my_list.delete_from_head())
+    print(my_list.delete_from_head())
+    print(my_list.delete_from_head())
 
     print("Head:", "\n")
     print(my_list.get_head(), "\n")
