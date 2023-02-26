@@ -335,6 +335,15 @@ class TestPlayerList(unittest.TestCase):
 
             count += 1
 
+    def test_type_error_raised_when_passing_not_boolean_arg_display_list_method(self):
+
+        with self.assertRaises(TypeError):
+            self.player_list.display_list("True")
+
+    def test_that_displays_an_empty_list_when_empty(self):
+        self.assertEqual(self.player_list.display_list(True), "[None]")
+        self.assertEqual(self.player_list.display_list(False), "[None]")
+
 
 
 
