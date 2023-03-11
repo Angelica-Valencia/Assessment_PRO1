@@ -17,7 +17,10 @@ class Player:
 
     def add_password(self, password: str):
 
-        self._hashed_password = self._password_hasher.hash(password)
+        if self._hashed_password:
+            raise ValueError("A password has already been set up.")
+        else:
+            self._hashed_password = self._password_hasher.hash(password)
 
     def verify_password(self, password: str) -> bool:
 
