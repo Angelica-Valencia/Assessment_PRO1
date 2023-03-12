@@ -38,5 +38,6 @@ if __name__ == "__main__":
     player1 = Player(123, "Angelica")
     print(player1)
     player1.add_password("Thank God")
+    player1.add_password("Thank God")
     print(player1.verify_password("Thank God"))
     print(player1.verify_password("Ooops"))

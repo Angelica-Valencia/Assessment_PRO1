@@ -24,3 +24,22 @@ class TestPlayer(unittest.TestCase):
     def test_that_name_returns_a_string(self):
 
         self.assertEqual(self.player_boolean_name.name, "False")
+
+    def test_that_checks_valueError_raised_when_adding_second_password(self):
+
+        self.player_1.add_password("My First Password")
+
+        with self.assertRaises(ValueError):
+            self.player_1.add_password("My Second Password")
+
+    def test_that_checks_that_a_matching_password_is_successfully_validated(self):
+
+        self.player_1.add_password("My First Password")
+
+        self.assertEqual(self.player_1.verify_password("My First Password"), True)
+
+    def test_that_checks_that_a_mismatching_password_is_not_successfully_validated(self):
+
+        self.player_1.add_password("My First Password")
+
+        self.assertEqual(self.player_1.verify_password("A Random Password"), False)
